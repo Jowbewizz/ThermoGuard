@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation 3D de Bâtiment</title>
+    <!-- Lien vers la bibliothèque CesiumJS -->
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.81/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.81/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <!-- Lien vers la feuille de style CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Barre de navigation -->
+    <div class="nav-bar">
+        <a class="nav-link" data-target="home" href="#">Accueil</a>
+        <a class="nav-link" data-target="reservation" href="#">Réservation</a>
+        <a class="nav-link" data-target="map" href="#">Map</a>
+        <a class="nav-link" data-target="about" href="#">À propos</a>
+    </div>
+
+    <!-- Sections du site -->
+    <div id="home" class="section active">
+        <h2>Accueil</h2>
+        <p>Bienvenue sur le site de gestion de bâtiment</p>
+        
+        <!-- Conteneur du carrousel -->
+        <div class="carousel-container">
+            <div class="carousel-slide">
+                <img src="image1.jpg" alt="Image 1" class="active">
+                <img src="image2.jpg" alt="Image 2">
+                <img src="image3.jpg" alt="Image 3">
+            </div>
+            <button class="carousel-btn prev-btn" onclick="prevSlide()">&#10094;</button>
+            <button class="carousel-btn next-btn" onclick="nextSlide()">&#10095;</button>
+        </div>
+    </div>
+    
+<div id="reservation" class="section">
+    <h2>Réservation</h2>
+    <p>Réservez une salle</p>
+
+    <!-- Sous-barre de navigation pour les bâtiments -->
+    <div class="building-nav-bar">
+        <!-- Génère dix boutons pour sélectionner chaque bâtiment -->
+        <button class="building-link" data-building="1">Bâtiment 1</button>
+        <button class="building-link" data-building="2">Bâtiment 2</button>
+        <button class="building-link" data-building="3">Bâtiment 3</button>
+        <button class="building-link" data-building="4">Bâtiment 4</button>
+        <button class="building-link" data-building="5">Bâtiment 5</button>
+        <button class="building-link" data-building="6">Bâtiment 6</button>
+        <button class="building-link" data-building="7">Bâtiment 7</button>
+        <button class="building-link" data-building="8">Bâtiment 8</button>
+        <button class="building-link" data-building="9">Bâtiment 9</button>
+        <button class="building-link" data-building="10">Bâtiment 10</button>
+    </div>
+
+ <!-- Liste des bâtiments avec les pièces associées -->
+    <div class="buildings">
+        <!-- Exemple pour le Bâtiment 1 -->
+        <div id="building-1" class="building">
+            <h3>Bâtiment 1</h3>
+            <div class="rooms">
+                <!-- Liste des pièces avec des informations statiques -->
+                <div id="room-101" class="room">
+                    <h4>Pièce 101</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-102" class="room">
+                    <h4>Pièce 102</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-103" class="room">
+                    <h4>Pièce 103</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-104" class="room">
+                    <h4>Pièce 104</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                 <div id="room-105" class="room">
+                    <h4>Pièce 105</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-106" class="room">
+                    <h4>Pièce 106</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-107" class="room">
+                    <h4>Pièce 107</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-108" class="room">
+                    <h4>Pièce 108</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-109" class="room">
+                    <h4>Pièce 109</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-110" class="room">
+                    <h4>Pièce 110</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Exemple pour le Bâtiment 2 -->
+        <div id="building-2" class="building">
+            <h3>Bâtiment 2</h3>
+            <div class="rooms">
+                <!-- Liste des pièces avec des informations statiques -->
+                <div id="room-201" class="room">
+                    <h4>Pièce 201</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-202" class="room">
+                    <h4>Pièce 202</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-203" class="room">
+                    <h4>Pièce 203</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-204" class="room">
+                    <h4>Pièce 204</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                 <div id="room-205" class="room">
+                    <h4>Pièce 205</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-206" class="room">
+                    <h4>Pièce 206</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-207" class="room">
+                    <h4>Pièce 207</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-208" class="room">
+                    <h4>Pièce 208</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-209" class="room">
+                    <h4>Pièce 209</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-210" class="room">
+                    <h4>Pièce 210</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                
+            </div>
+        </div>
+        <!-- Exemple pour le Bâtiment 3 -->
+        <div id="building-3" class="building">
+            <h3>Bâtiment 3</h3>
+            <div class="rooms">
+                <!-- Liste des pièces avec des informations statiques -->
+                <div id="room-301" class="room">
+                    <h4>Pièce 301</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-302" class="room">
+                    <h4>Pièce 302</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-303" class="room">
+                    <h4>Pièce 303</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-304" class="room">
+                    <h4>Pièce 304</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                 <div id="room-305" class="room">
+                    <h4>Pièce 305</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-306" class="room">
+                    <h4>Pièce 306</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-307" class="room">
+                    <h4>Pièce 307</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-308" class="room">
+                    <h4>Pièce 308</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-309" class="room">
+                    <h4>Pièce 309</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-310" class="room">
+                    <h4>Pièce 310</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Exemple pour le Bâtiment 4 -->
+        <div id="building-4" class="building">
+            <h3>Bâtiment 4</h3>
+            <div class="rooms">
+                <!-- Liste des pièces avec des informations statiques -->
+                <div id="room-401" class="room">
+                    <h4>Pièce 401</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-402" class="room">
+                    <h4>Pièce 402</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-403" class="room">
+                    <h4>Pièce 403</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-404" class="room">
+                    <h4>Pièce 404</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                 <div id="room-405" class="room">
+                    <h4>Pièce 405</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-406" class="room">
+                    <h4>Pièce 406</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-407" class="room">
+                    <h4>Pièce 407</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-408" class="room">
+                    <h4>Pièce 408</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-409" class="room">
+                    <h4>Pièce 409</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-410" class="room">
+                    <h4>Pièce 410</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                
+            </div>
+        </div>
+        <!-- Exemple pour le Bâtiment 5 -->
+        <div id="building-5" class="building">
+            <h3>Bâtiment 5</h3>
+            <div class="rooms">
+                <!-- Liste des pièces avec des informations statiques -->
+                <div id="room-501" class="room">
+                    <h4>Pièce 501</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-502" class="room">
+                    <h4>Pièce 502</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-503" class="room">
+                    <h4>Pièce 503</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-504" class="room">
+                    <h4>Pièce 504</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                 <div id="room-505" class="room">
+                    <h4>Pièce 505</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-506" class="room">
+                    <h4>Pièce 506</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-507" class="room">
+                    <h4>Pièce 507</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-508" class="room">
+                    <h4>Pièce 508</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-509" class="room">
+                    <h4>Pièce 509</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-510" class="room">
+                    <h4>Pièce 110</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Exemple pour le Bâtiment 6 -->
+        <div id="building-6" class="building">
+            <h3>Bâtiment 6</h3>
+            <div class="rooms">
+                <!-- Liste des pièces avec des informations statiques -->
+                <div id="room-601" class="room">
+                    <h4>Pièce 601</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-602" class="room">
+                    <h4>Pièce 602</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-603" class="room">
+                    <h4>Pièce 603</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-604" class="room">
+                    <h4>Pièce 604</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                 <div id="room-605" class="room">
+                    <h4>Pièce 605</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-606" class="room">
+                    <h4>Pièce 606</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-607" class="room">
+                    <h4>Pièce 607</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-608" class="room">
+                    <h4>Pièce 608</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-609" class="room">
+                    <h4>Pièce 609</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-610" class="room">
+                    <h4>Pièce 610</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                
+            </div>
+        </div>
+        <!-- Exemple pour le Bâtiment 7 -->
+        <div id="building-7" class="building">
+            <h3>Bâtiment 7</h3>
+            <div class="rooms">
+                <!-- Liste des pièces avec des informations statiques -->
+                <div id="room-701" class="room">
+                    <h4>Pièce 701</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-702" class="room">
+                    <h4>Pièce 702</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-703" class="room">
+                    <h4>Pièce 703</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-704" class="room">
+                    <h4>Pièce 704</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                 <div id="room-705" class="room">
+                    <h4>Pièce 705</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-706" class="room">
+                    <h4>Pièce 706</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-707" class="room">
+                    <h4>Pièce 707</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-708" class="room">
+                    <h4>Pièce 708</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-709" class="room">
+                    <h4>Pièce 709</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-710" class="room">
+                    <h4>Pièce 710</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Exemple pour le Bâtiment 8 -->
+        <div id="building-8" class="building">
+            <h3>Bâtiment 8</h3>
+            <div class="rooms">
+                <!-- Liste des pièces avec des informations statiques -->
+                <div id="room-801" class="room">
+                    <h4>Pièce 801</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-802" class="room">
+                    <h4>Pièce 802</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-803" class="room">
+                    <h4>Pièce 803</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-804" class="room">
+                    <h4>Pièce 804</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                 <div id="room-805" class="room">
+                    <h4>Pièce 805</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-806" class="room">
+                    <h4>Pièce 806</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-807" class="room">
+                    <h4>Pièce 807</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-808" class="room">
+                    <h4>Pièce 808</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-809" class="room">
+                    <h4>Pièce 809</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-810" class="room">
+                    <h4>Pièce 810</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Exemple pour le Bâtiment 9 -->
+        <div id="building-9" class="building">
+            <h3>Bâtiment 9</h3>
+            <div class="rooms">
+                <!-- Liste des pièces avec des informations statiques -->
+                <div id="room-901" class="room">
+                    <h4>Pièce 901</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-902" class="room">
+                    <h4>Pièce 902</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-903" class="room">
+                    <h4>Pièce 903</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-904" class="room">
+                    <h4>Pièce 904</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                 <div id="room-905" class="room">
+                    <h4>Pièce 905</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-906" class="room">
+                    <h4>Pièce 906</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-907" class="room">
+                    <h4>Pièce 907</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-908" class="room">
+                    <h4>Pièce 908</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-909" class="room">
+                    <h4>Pièce 909</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-910" class="room">
+                    <h4>Pièce 910</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Exemple pour le Bâtiment 10 -->
+        <div id="building-10" class="building">
+            <h3>Bâtiment 10</h3>
+            <div class="rooms">
+                <!-- Liste des pièces avec des informations statiques -->
+                <div id="room-1001" class="room">
+                    <h4>Pièce 1001</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-1002" class="room">
+                    <h4>Pièce 1002</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-1003" class="room">
+                    <h4>Pièce 1003</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-1004" class="room">
+                    <h4>Pièce 1004</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                 <div id="room-1005" class="room">
+                    <h4>Pièce 1005</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-1006" class="room">
+                    <h4>Pièce 1006</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-1007" class="room">
+                    <h4>Pièce 1007</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-1008" class="room">
+                    <h4>Pièce 1008</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                <div id="room-1009" class="room">
+                    <h4>Pièce 1009</h4>
+                    <p>Nom : Salle de réunion</p>
+                    <p>Utilité : Réunion</p>
+                    <p>Nombre de places : 20</p>
+                    <p>Température : <span class="temperature">21°C</span></p>
+                </div>
+                <div id="room-1010" class="room">
+                    <h4>Pièce 1010</h4>
+                    <p>Nom : Bureau</p>
+                    <p>Utilité : Travail</p>
+                    <p>Nombre de places : 4</p>
+                    <p>Température : <span class="temperature">22°C</span></p>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Répétez pour les autres bâtiments jusqu'au bâtiment 10 -->
+    </div>
+    
+    
+</div>
+
+    <div id="map" class="section">
+        <h2>Carte 3D du Bâtiment</h2>
+        <div id="cesiumContainer"></div>
+    </div>
+    <div id="about" class="section">
+        <h2>À propos</h2>
+        <p>Informations sur le site et les capteurs</p>
+    </div>
+
+    <!-- Script JavaScript pour la navigation et le carrousel -->
+    <script>
+        // Gestion de la navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const target = link.getAttribute('data-target');
+
+                sections.forEach(section => section.classList.remove('active'));
+
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        // Initialisation de la carte CesiumJS
+        var viewer = new Cesium.Viewer('cesiumContainer', {
+            terrainProvider: Cesium.createWorldTerrain(),
+            imageryProvider: new Cesium.IonImageryProvider({ assetId: 3 }),
+            baseLayerPicker: false
+        });
+
+        // Carrousel
+        const slides = document.querySelectorAll('.carousel-slide img');
+        let currentIndex = 0;
+
+        function nextSlide() {
+            slides[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % slides.length;
+            slides[currentIndex].classList.add('active');
+        }
+
+        function prevSlide() {
+            slides[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            slides[currentIndex].classList.add('active');
+        }
+
+        // Défilement automatique toutes les 3 secondes
+        setInterval(nextSlide, 3000);
+
+        // Fonction pour ajouter un bâtiment 3D simulé avec des boîtes
+        function addBuildingSimulation() {
+            var buildingCenter = Cesium.Cartesian3.fromDegrees(-75.59777, 40.03883, 0);
+
+            for (let i = 0; i < 15; i++) {
+                const offset = i * 30;
+                viewer.entities.add({
+                    name: 'Pièce ' + (i + 1),
+                    position: Cesium.Cartesian3.fromDegrees(-75.59777 + (i % 5) * 0.0001, 40.03883 + Math.floor(i / 5) * 0.0001, 10),
+                    box: {
+                        dimensions: new Cesium.Cartesian3(20.0, 20.0, 15.0),
+                        material: Cesium.Color.fromRandom({ alpha: 0.7 }),
+                        outline: true,
+                        outlineColor: Cesium.Color.BLACK
+                    }
+                });
+            }
+        }
+
+        // Ajouter le bâtiment simulé
+        addBuildingSimulation();
+
+        // Fonction pour récupérer la position GPS de l'utilisateur
+        function getUserPosition() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const userLatitude = position.coords.latitude;
+                    const userLongitude = position.coords.longitude;
+
+                    var userPosition = viewer.entities.add({
+                        name: 'Position actuelle de l\'utilisateur',
+                        position: Cesium.Cartesian3.fromDegrees(userLongitude, userLatitude),
+                        point: { pixelSize: 10, color: Cesium.Color.BLUE }
+                    });
+
+                    viewer.zoomTo(userPosition);
+                });
+            } else {
+                alert("La géolocalisation n'est pas supportée par ce navigateur.");
+            }
+        }
+
+        document.getElementById('map').addEventListener('click', getUserPosition);
+    </script>
+</body>
+</html>

@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThermoGuard</title>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.81/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.81/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Barre de navigation -->
+    <div class="nav-bar">
+        <button class="nav-link" data-target="home">Accueil</button>
+        <button class="nav-link" data-target="reservation">Informations des locaux</button>
+        <button class="nav-link" data-target="map">Map</button>
+        <button class="nav-link" data-target="about">À propos</button>
+    </div>
+
+    <!-- Sections du site -->
+    <div id="home" class="section active">
+        <h2>Accueil</h2>
+        <p>Bienvenue sur le site de gestion de bâtiment</p>
+        <p>Informez-vous sur la température, qualité de l’air et l’humidité de votre environnement de travail</p>
+        
+         <!-- Carrousel -->
+        <div class="carousel">
+            <img src="image 1.jpg" alt="Image 1" class="active">
+            <img src="image 2.jpg" alt="Image 2">
+            <img src="image 3.jpg" alt="Image 3">
+            <img src="image 4.jpg" alt="Image 4">
+            <img src="image 10.jpg" alt="Image 10">
+            <img src="Image 11.jpg" alt="Image 11">
+            <img src="image 12.jpg" alt="Image 12">
+            <img src="image 13.jpg" alt="Image 13">
+            <img src="image 14.jpg" alt="Image 14">           
+        </div>
+    </div>
+
+    <div id="reservation" class="section">
+        <h2>Informations des locaux</h2>
+        <p>Choisissez le local</p>
+
+        <!-- Sous-barre de navigation pour les bâtiments -->
+        <div class="building-nav-bar">
+            <!-- Générer dix boutons pour sélectionner chaque bâtiment -->
+            <button class="building-link" data-building="1">Bâtiment 1</button>
+            <button class="building-link" data-building="2">Bâtiment 2</button>
+            <button class="building-link" data-building="3">Bâtiment 3</button>
+            <button class="building-link" data-building="4">Bâtiment 4</button>
+            <button class="building-link" data-building="5">Bâtiment 5</button>
+            <button class="building-link" data-building="6">Bâtiment 6</button>
+            <button class="building-link" data-building="7">Bâtiment 7</button>
+            <button class="building-link" data-building="8">Bâtiment 8</button>
+            <button class="building-link" data-building="9">Bâtiment 9</button>
+            <button class="building-link" data-building="10">Bâtiment 10</button>
+        </div>
+
+        <div class="buildings">
+            <!-- Générer dix bâtiments, chacun avec dix pièces --> 
+            <div id="building-1" class="building">
+                <h3>Bâtiment 1</h3>
+                <div class="level" id="level-1">
+                <button class="level-button" onclick="toggleRooms('level-1-rooms', 'level-1-image')">Niveau 1</button>
+                <img src="Plan%201.png" id="level-1-image" alt="Image du niveau 1" class="level-image" style="display: none;">
+                <div class="rooms" id="level-1-rooms" style="display: none;">
+                    <div id="room-101" class="room">
+                        <h5>Pièce 101</h5>
+                        <p><strong>Température :</strong> <span id="temperature">Chargement...</span> °C</p>
+                        <p><strong>Humidité :</strong> <span id="humidity">Chargement...</span> %</p>
+                        <p><strong>CO2 :</strong> <span id="co2">Chargement...</span> ppm</p>
+                        <p><strong>Poussière :</strong> <span id="dust">Chargement...</span> µg/m³</p>
+
+                    </div>
+                    <div id="room-102" class="room">
+                        <h5>Pièce 102</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>CO2 : <span class="co2">18 ppm</span></p>
+                        <p>Poussière : <span class="dust">21 µg/m³</span></p>
+                    </div>
+            
+            <!-- Ajoutez d'autres pièces ici -->
+                </div>
+            </div>
+                <div class="level" id="level-2">
+                
+                <button class="level-button" onclick="toggleRooms('level-2-rooms', 'level-2-image')">Niveau 2</button>
+                <img src="Plan%202.png" id="level-2-image" alt="Image du niveau 2" class="level-image" style="display: none;">
+                <div class="rooms" id="level-2-rooms" style="display: none;">
+                    <div id="room-201" class="room">
+                        <h5>Pièce 201</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>CO2 : <span class="co2">18 ppm</span></p>
+                        <p>Poussière : <span class="dust">21 µg/m³</span></p>
+                    </div>
+                    <div id="room-202" class="room">
+                        <h5>Pièce 202</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+            
+            <!-- Ajoutez d'autres pièces ici -->
+                    </div>
+                </div>
+            </div>
+                <div class="level" id="level-3">
+                <button class="level-button" onclick="toggleRooms('level-3-rooms', 'level-3-image')">Niveau 3</button>
+                <img src="Plan%203.png" id="level-3-image" alt="Image du niveau 3" class="level-image" style="display: none;">
+                <div class="rooms" id="level-3-rooms" style="display: none;">
+                    <div id="room-301" class="room">
+                        <h5>Pièce 301</h5>
+                      <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">1.8%</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-302" class="room">
+                        <h5>Pièce 302</h5>
+                        <p>Température : <span class="temperature">34°C</span></p>
+                        <p>Humidité : <span class="humidity">50%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18%</span></p>
+                        <p>Poussière : <span class="dust">131HPPM</span></p>
+                    </div>
+            
+            <!-- Ajoutez d'autres pièces ici -->
+                </div>
+            </div>
+            </div>
+            
+            <!-- Exemple pour le Bâtiment 2 -->
+            <div id="building-2" class="building">
+                <h3>Bâtiment 2</h3>
+                <h3>Hôtel de ville d'Ottawa</h3>
+                <p>110 Laurier Ave. W, Ottawa ON</p>
+                <img src="Image%205.jpg" alt="Image du batiment 2" class="level-image ">
+                <div class="level" id="level-1">
+                <button class="level-button" onclick="toggleRooms('level-1-rooms')">Niveau 1</button>
+                <div class="rooms" id="level-1-rooms" style="display: none;">
+                    <div id="room-101" class="room">
+                        <h5>Pièce 101</h5>
+                        <p>Température : <span class="temperature">21°C</span></p>
+                        <p>Humidité : <span class="humidity">40%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">8°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-102" class="room">
+                        <h5>Pièce 102</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-103" class="room">
+                        <h5>Pièce 103</h5>
+                        <p>Température : <span class="temperature">21°C</span></p>
+                        <p>Humidité : <span class="humidity">40%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">8°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-104" class="room">
+                        <h5>Pièce 104</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-105" class="room">
+                        <h5>Pièce 105</h5>
+                        <p>Température : <span class="temperature">21°C</span></p>
+                        <p>Humidité : <span class="humidity">40%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">8°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-106" class="room">
+                        <h5>Pièce 106</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-107" class="room">
+                        <h5>Pièce 107</h5>
+                        <p>Température : <span class="temperature">21°C</span></p>
+                        <p>Humidité : <span class="humidity">40%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">8°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-108" class="room">
+                        <h5>Pièce 108</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+            
+            <!-- Ajoutez d'autres pièces ici -->
+                </div>
+            </div>
+                <div class="level" id="level-2">
+                <button class="level-button" onclick="toggleRooms('level-2-rooms')">Niveau 2</button>
+                <div class="rooms" id="level-2-rooms" style="display: none;">
+                    <div id="room-201" class="room">
+                        <h5>Pièce 201</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-202" class="room">
+                        <h5>Pièce 202</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-203" class="room">
+                        <h5>Pièce 203</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-204" class="room">
+                        <h5>Pièce 204</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-205" class="room">
+                        <h5>Pièce 205</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-206" class="room">
+                        <h5>Pièce 206</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-207" class="room">
+                        <h5>Pièce 207</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-208" class="room">
+                        <h5>Pièce 208</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+            <!-- Ajoutez d'autres pièces ici -->
+                    
+                </div>
+                </div>
+                <div class="level" id="level-3">
+                <button class="level-button" onclick="toggleRooms('level-3-rooms')">Niveau 3</button>
+                <div class="rooms" id="level-3-rooms" style="display: none;">
+                    <div id="room-301" class="room">
+                        <h5>Pièce 301</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-302" class="room">
+                        <h5>Pièce 302</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-303" class="room">
+                        <h5>Pièce 303</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-304" class="room">
+                        <h5>Pièce 304</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-305" class="room">
+                        <h5>Pièce 305</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-306" class="room">
+                        <h5>Pièce 306</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-307" class="room">
+                        <h5>Pièce 307</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+                    <div id="room-308" class="room">
+                        <h5>Pièce 308</h5>
+                        <p>Température : <span class="temperature">31°C</span></p>
+                        <p>Humidité : <span class="humidity">30%</span></p>
+                        <p>Taux de CO2 : <span class="CO2 rate">18°C</span></p>
+                        <p>Poussière : <span class="dust">21HPPM</span></p>
+                    </div>
+            
+            <!-- Ajoutez d'autres pièces ici -->
+                </div>
+                </div>
+                <div class="level" id="level-4">
+                <button class="level-button" onclick="toggleRooms('level-4-rooms')">Niveau 4</button>    
+                </div> 
+                <div class="level" id="level-5">
+                <button class="level-button" onclick="toggleRooms('level-5-rooms')">Niveau 5</button>    
+                </div>
+                <div class="level" id="level-6">
+                <button class="level-button" onclick="toggleRooms('level-6-rooms')">Niveau 6</button>    
+                </div>
+            </div>
+            <!-- Exemple pour le Bâtiment 3 -->
+            <div id="building-3" class="building">
+                <h3>Bâtiment 3</h3>
+                <p>395 Terminal Avenu – Ottawa train yard</p>
+                <img src="Batiment%203.jpg" alt="Image du batiment 3" class="level-image ">
+                <div class="level" id="level-1">
+                <button class="level-button" onclick="toggleRooms('level-1-rooms')">Niveau 1</button>
+                </div>
+                <div class="level" id="level-2">
+                <button class="level-button" onclick="toggleRooms('level-2-rooms')">Niveau 2</button>    
+                </div> 
+                <div class="level" id="level-3">
+                <button class="level-button" onclick="toggleRooms('level-3-rooms')">Niveau 3</button>    
+                </div>
+                <div class="level" id="level-4">
+                <button class="level-button" onclick="toggleRooms('level-4-rooms')">Niveau 4</button>    
+                </div> 
+                <div class="level" id="level-5">
+                <button class="level-button" onclick="toggleRooms('level-5-rooms')">Niveau 5</button>    
+                </div>
+                <div class="level" id="level-6">
+                <button class="level-button" onclick="toggleRooms('level-6-rooms')">Niveau 6</button>    
+                </div>
+                <div class="level" id="level-7">
+                <button class="level-button" onclick="toggleRooms('level-7-rooms')">Niveau 7</button>
+                </div>
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-8-rooms')">Niveau 8</button>    
+                </div> 
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-9-rooms')">Niveau 9</button>    
+                </div>
+                <div class="level" id="level-10">
+                <button class="level-button" onclick="toggleRooms('level-10-rooms')">Niveau 10</button>    
+                </div> 
+                <div class="level" id="level-11">
+                <button class="level-button" onclick="toggleRooms('level-11-rooms')">Niveau 11</button>    
+                </div>
+                <div class="level" id="level-12">
+                <button class="level-button" onclick="toggleRooms('level-12-rooms')">Niveau 12</button>    
+                </div>
+                
+            </div>
+                   <!-- Exemple pour le Bâtiment 4 -->
+            <div id="building-4" class="building">
+                <h3>Bâtiment 4</h3>
+                <p>100 Metclafe Street, Ottawa ON</p>
+                <img src="Batiment%204.jpg" alt="Image du batiment 4" class="level-image ">
+                <div class="level" id="level-1">
+                <button class="level-button" onclick="toggleRooms('level-1-rooms')">Niveau 1</button>
+                </div>
+                <div class="level" id="level-2">
+                <button class="level-button" onclick="toggleRooms('level-2-rooms')">Niveau 2</button>    
+                </div> 
+                <div class="level" id="level-3">
+                <button class="level-button" onclick="toggleRooms('level-3-rooms')">Niveau 3</button>    
+                </div>
+                <div class="level" id="level-4">
+                <button class="level-button" onclick="toggleRooms('level-4-rooms')">Niveau 4</button>    
+                </div> 
+                <div class="level" id="level-5">
+                <button class="level-button" onclick="toggleRooms('level-5-rooms')">Niveau 5</button>    
+                </div>
+                <div class="level" id="level-6">
+                <button class="level-button" onclick="toggleRooms('level-6-rooms')">Niveau 6</button>    
+                </div>
+                <div class="level" id="level-7">
+                <button class="level-button" onclick="toggleRooms('level-7-rooms')">Niveau 7</button>
+                </div>
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-8-rooms')">Niveau 8</button>    
+                </div> 
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-9-rooms')">Niveau 9</button>    
+                </div>
+                <div class="level" id="level-10">
+                <button class="level-button" onclick="toggleRooms('level-10-rooms')">Niveau 10</button>    
+                </div> 
+                <div class="level" id="level-11">
+                <button class="level-button" onclick="toggleRooms('level-11-rooms')">Niveau 11</button>    
+                </div>
+                <div class="level" id="level-12">
+                <button class="level-button" onclick="toggleRooms('level-12-rooms')">Niveau 12</button>    
+                </div>
+            
+            </div>
+            <!-- Exemple pour le Bâtiment 5 -->
+            <div id="building-5" class="building">
+                <h3>Bâtiment 5</h3>
+                <p>360 Lebreton Street S, Ottawa ON</p>
+                <img src="Batiment%205.jpg" alt="Image du batiment 5" class="level-image ">
+                <div class="level" id="level-1">
+                <button class="level-button" onclick="toggleRooms('level-1-rooms')">Niveau 1</button>
+                </div>
+                <div class="level" id="level-2">
+                <button class="level-button" onclick="toggleRooms('level-2-rooms')">Niveau 2</button>    
+                </div> 
+                <div class="level" id="level-3">
+                <button class="level-button" onclick="toggleRooms('level-3-rooms')">Niveau 3</button>    
+                </div>
+                <div class="level" id="level-4">
+                <button class="level-button" onclick="toggleRooms('level-4-rooms')">Niveau 4</button>    
+                </div> 
+                <div class="level" id="level-5">
+                <button class="level-button" onclick="toggleRooms('level-5-rooms')">Niveau 5</button>    
+                </div>
+                <div class="level" id="level-6">
+                <button class="level-button" onclick="toggleRooms('level-6-rooms')">Niveau 6</button>    
+                </div>
+                <div class="level" id="level-7">
+                <button class="level-button" onclick="toggleRooms('level-7-rooms')">Niveau 7</button>
+                </div>
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-8-rooms')">Niveau 8</button>    
+                </div> 
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-9-rooms')">Niveau 9</button>    
+                </div>
+                <div class="level" id="level-10">
+                <button class="level-button" onclick="toggleRooms('level-10-rooms')">Niveau 10</button>    
+                </div> 
+                <div class="level" id="level-11">
+                <button class="level-button" onclick="toggleRooms('level-11-rooms')">Niveau 11</button>    
+                </div>
+                <div class="level" id="level-12">
+                <button class="level-button" onclick="toggleRooms('level-12-rooms')">Niveau 12</button>    
+                </div>
+                
+            </div>
+        
+            <!-- Exemple pour le Bâtiment 6 -->
+            <div id="building-6" class="building">
+                <h3>Bâtiment 6</h3>
+                <p>580 Booth Street, Ottawa ON</p>
+                <img src="Batiment%206.jpg" alt="Image du batiment 6" class="level-image ">
+                <div class="level" id="level-1">
+                <button class="level-button" onclick="toggleRooms('level-1-rooms')">Niveau 1</button>
+                </div>
+                <div class="level" id="level-2">
+                <button class="level-button" onclick="toggleRooms('level-2-rooms')">Niveau 2</button>    
+                </div> 
+                <div class="level" id="level-3">
+                <button class="level-button" onclick="toggleRooms('level-3-rooms')">Niveau 3</button>    
+                </div>
+                <div class="level" id="level-4">
+                <button class="level-button" onclick="toggleRooms('level-4-rooms')">Niveau 4</button>    
+                </div> 
+                <div class="level" id="level-5">
+                <button class="level-button" onclick="toggleRooms('level-5-rooms')">Niveau 5</button>    
+                </div>
+                <div class="level" id="level-6">
+                <button class="level-button" onclick="toggleRooms('level-6-rooms')">Niveau 6</button>    
+                </div>
+                <div class="level" id="level-7">
+                <button class="level-button" onclick="toggleRooms('level-7-rooms')">Niveau 7</button>
+                </div>
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-8-rooms')">Niveau 8</button>    
+                </div> 
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-9-rooms')">Niveau 9</button>    
+                </div>
+                <div class="level" id="level-10">
+                <button class="level-button" onclick="toggleRooms('level-10-rooms')">Niveau 10</button>    
+                </div> 
+                <div class="level" id="level-11">
+                <button class="level-button" onclick="toggleRooms('level-11-rooms')">Niveau 11</button>    
+                </div>
+                <div class="level" id="level-12">
+                <button class="level-button" onclick="toggleRooms('level-12-rooms')">Niveau 12</button>    
+                </div>
+                
+            
+            </div>
+            <!-- Exemple pour le Bâtiment 7 -->
+            <div id="building-7" class="building">
+                <h3>Bâtiment 7</h3>
+                <p>360 Lebreton Street S, Ottawa ON</p>
+                <img src="Batiment%205.jpg" alt="Image du batiment 7" class="level-image ">
+                <div class="level" id="level-1">
+                <button class="level-button" onclick="toggleRooms('level-1-rooms')">Niveau 1</button>
+                </div>
+                <div class="level" id="level-2">
+                <button class="level-button" onclick="toggleRooms('level-2-rooms')">Niveau 2</button>    
+                </div> 
+                <div class="level" id="level-3">
+                <button class="level-button" onclick="toggleRooms('level-3-rooms')">Niveau 3</button>    
+                </div>
+                <div class="level" id="level-4">
+                <button class="level-button" onclick="toggleRooms('level-4-rooms')">Niveau 4</button>    
+                </div> 
+                <div class="level" id="level-5">
+                <button class="level-button" onclick="toggleRooms('level-5-rooms')">Niveau 5</button>    
+                </div>
+                <div class="level" id="level-6">
+                <button class="level-button" onclick="toggleRooms('level-6-rooms')">Niveau 6</button>    
+                </div>
+                <div class="level" id="level-7">
+                <button class="level-button" onclick="toggleRooms('level-7-rooms')">Niveau 7</button>
+                </div>
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-8-rooms')">Niveau 8</button>    
+                </div> 
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-9-rooms')">Niveau 9</button>    
+                </div>
+                <div class="level" id="level-10">
+                <button class="level-button" onclick="toggleRooms('level-10-rooms')">Niveau 10</button>    
+                </div> 
+                <div class="level" id="level-11">
+                <button class="level-button" onclick="toggleRooms('level-11-rooms')">Niveau 11</button>    
+                </div>
+                <div class="level" id="level-12">
+                <button class="level-button" onclick="toggleRooms('level-12-rooms')">Niveau 12</button>    
+                </div>
+            
+            </div>
+            <!-- Exemple pour le Bâtiment 8 -->
+            <div id="building-8" class="building">
+                <h3>Bâtiment 8</h3>
+                <p>360 Lebreton Street S, Ottawa ON</p>
+                <img src="Batiment%205.jpg" alt="Image du batiment 8" class="level-image ">
+                <div class="level" id="level-1">
+                <button class="level-button" onclick="toggleRooms('level-1-rooms')">Niveau 1</button>
+                </div>
+                <div class="level" id="level-2">
+                <button class="level-button" onclick="toggleRooms('level-2-rooms')">Niveau 2</button>    
+                </div> 
+                <div class="level" id="level-3">
+                <button class="level-button" onclick="toggleRooms('level-3-rooms')">Niveau 3</button>    
+                </div>
+                <div class="level" id="level-4">
+                <button class="level-button" onclick="toggleRooms('level-4-rooms')">Niveau 4</button>    
+                </div> 
+                <div class="level" id="level-5">
+                <button class="level-button" onclick="toggleRooms('level-5-rooms')">Niveau 5</button>    
+                </div>
+                <div class="level" id="level-6">
+                <button class="level-button" onclick="toggleRooms('level-6-rooms')">Niveau 6</button>    
+                </div>
+                <div class="level" id="level-7">
+                <button class="level-button" onclick="toggleRooms('level-7-rooms')">Niveau 7</button>
+                </div>
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-8-rooms')">Niveau 8</button>    
+                </div> 
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-9-rooms')">Niveau 9</button>    
+                </div>
+                <div class="level" id="level-10">
+                <button class="level-button" onclick="toggleRooms('level-10-rooms')">Niveau 10</button>    
+                </div> 
+                <div class="level" id="level-11">
+                <button class="level-button" onclick="toggleRooms('level-11-rooms')">Niveau 11</button>    
+                </div>
+                <div class="level" id="level-12">
+                <button class="level-button" onclick="toggleRooms('level-12-rooms')">Niveau 12</button>    
+                </div>
+                
+            </div>
+            <!-- Exemple pour le Bâtiment 9 -->
+            <div id="building-9" class="building">
+                <h3>Bâtiment 9</h3>
+                <p>360 Lebreton Street S, Ottawa ON</p>
+                <img src="Batiment%205.jpg" alt="Image du batiment 9" class="level-image ">
+                <div class="level" id="level-1">
+                <button class="level-button" onclick="toggleRooms('level-1-rooms')">Niveau 1</button>
+                </div>
+                <div class="level" id="level-2">
+                <button class="level-button" onclick="toggleRooms('level-2-rooms')">Niveau 2</button>    
+                </div> 
+                <div class="level" id="level-3">
+                <button class="level-button" onclick="toggleRooms('level-3-rooms')">Niveau 3</button>    
+                </div>
+                <div class="level" id="level-4">
+                <button class="level-button" onclick="toggleRooms('level-4-rooms')">Niveau 4</button>    
+                </div> 
+                <div class="level" id="level-5">
+                <button class="level-button" onclick="toggleRooms('level-5-rooms')">Niveau 5</button>    
+                </div>
+                <div class="level" id="level-6">
+                <button class="level-button" onclick="toggleRooms('level-6-rooms')">Niveau 6</button>    
+                </div>
+                <div class="level" id="level-7">
+                <button class="level-button" onclick="toggleRooms('level-7-rooms')">Niveau 7</button>
+                </div>
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-8-rooms')">Niveau 8</button>    
+                </div> 
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-9-rooms')">Niveau 9</button>    
+                </div>
+                <div class="level" id="level-10">
+                <button class="level-button" onclick="toggleRooms('level-10-rooms')">Niveau 10</button>    
+                </div> 
+                <div class="level" id="level-11">
+                <button class="level-button" onclick="toggleRooms('level-11-rooms')">Niveau 11</button>    
+                </div>
+                <div class="level" id="level-12">
+                <button class="level-button" onclick="toggleRooms('level-12-rooms')">Niveau 12</button>    
+                </div>
+            </div>
+            <!-- Exemple pour le Bâtiment 10 -->
+            <div id="building-10" class="building">
+                <h3>Bâtiment 10</h3>
+                <p>360 Lebreton Street S, Ottawa ON</p>
+                <img src="Batiment%205.jpg" alt="Image du batiment 10" class="level-image ">
+                <div class="level" id="level-1">
+                <button class="level-button" onclick="toggleRooms('level-1-rooms')">Niveau 1</button>
+                </div>
+                <div class="level" id="level-2">
+                <button class="level-button" onclick="toggleRooms('level-2-rooms')">Niveau 2</button>    
+                </div> 
+                <div class="level" id="level-3">
+                <button class="level-button" onclick="toggleRooms('level-3-rooms')">Niveau 3</button>    
+                </div>
+                <div class="level" id="level-4">
+                <button class="level-button" onclick="toggleRooms('level-4-rooms')">Niveau 4</button>    
+                </div> 
+                <div class="level" id="level-5">
+                <button class="level-button" onclick="toggleRooms('level-5-rooms')">Niveau 5</button>    
+                </div>
+                <div class="level" id="level-6">
+                <button class="level-button" onclick="toggleRooms('level-6-rooms')">Niveau 6</button>    
+                </div>
+                <div class="level" id="level-7">
+                <button class="level-button" onclick="toggleRooms('level-7-rooms')">Niveau 7</button>
+                </div>
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-8-rooms')">Niveau 8</button>    
+                </div> 
+                <div class="level" id="level-8">
+                <button class="level-button" onclick="toggleRooms('level-9-rooms')">Niveau 9</button>    
+                </div>
+                <div class="level" id="level-10">
+                <button class="level-button" onclick="toggleRooms('level-10-rooms')">Niveau 10</button>    
+                </div> 
+                <div class="level" id="level-11">
+                <button class="level-button" onclick="toggleRooms('level-11-rooms')">Niveau 11</button>    
+                </div>
+                <div class="level" id="level-12">
+                <button class="level-button" onclick="toggleRooms('level-12-rooms')">Niveau 12</button>    
+                </div>
+            </div>
+            <!-- Continuez jusqu'au bâtiment 10 -->
+        </div>
+    </div>
+
+    <div id="map" class="section">
+        <h2>Carte 3D du Bâtiment</h2>
+        <div id="cesiumContainer"></div>
+    </div>
+
+    <div id="about" class="section">
+        <h2>À propos</h2>
+        <p>Informations sur le site et les capteurs</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+    
+<footer class="footer">
+    <p>&copy; 2024 ThermoGuard. Tous droits réservés.</p>
+    <p>Contact : <a href="mailto:info@thermoguard.ca">info@thermoguard.ca</a></p>
+</footer>
+
+</html>
